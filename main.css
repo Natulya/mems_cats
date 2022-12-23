@@ -4,14 +4,12 @@ body {
     margin: 0;
 
 }
-  
 
 h1 {
     color: black;
     font-size: 20px;
     font-weight: 700;
 }
-
 
 .container {
     background-color: #e3f4f8a0;
@@ -48,6 +46,7 @@ i {
     margin-bottom: 16px;
     font-size: 24px;
 }
+
 i:hover {
     cursor: pointer;
 }
@@ -60,9 +59,11 @@ input {
 button {
     margin: 4px;
 }
+
 button:hover {
     cursor: pointer;
 }
+
 .modal {
     display: block;
     display: flex;
