@@ -4,7 +4,7 @@ const modalContent = document.querySelector('[data-modalContent]');
 console.log(modalWr, modalContent);
 const CREATE_FORM_lS_KEY = "CREATE_FORM_lS_KEY"; 
 
-const getCreateCatFormHTML = () => `<h3>Добавить котика</h3>
+const getCreateCatFormHTML = () => `<i class="fa-regular fa-circle-xmark"></i> <h3>Добавить котика</h3>
 <form name="createCatForm">
     <div>
         <input type="number" name="id" placeholder="ID" required>
@@ -45,13 +45,14 @@ const getCatHTML = (cat) => {
 
     return `
     <div data-id="${cat.id}" class="card">
-            <h3>Кот ${cat.name}</h3>
-            <img src="${cat.image}" alt="${cat.name}" >
-            <p>Полных лет: ${cat.age}</p>
-            <p>Рейтинг: ${cat.rate} из 10</p>
-            <button data-action="${actions.detail}">Подробнее</button> 
-            <button data-action="${actions.delete}">Удалить</button> 
-        </div>
+        <h3>Кот ${cat.name}</h3>
+        <img src="${cat.image}" alt="${cat.name}" >
+        <p>Полных лет: ${cat.age}</p>
+        <p>Рейтинг: ${cat.rate} из 10</p>
+        <p>О котике: ${cat.description}</p>
+        <button data-action="${actions.detail}">Подробнее</button> 
+        <button data-action="${actions.delete}">Удалить</button> 
+    </div>
     `
 }
 
@@ -98,7 +99,7 @@ const submitCreateCatHandler = (e) => {
     // console.log(e);
     let formDataObject = formatCreateFormData(Object.fromEntries(new FormData(e.target).entries()));
 
-    // const showCreateCatError = () => alert("Ошибка при создании кота");
+    const showCreateCatError = () => alert("Ошибка при создании кота");
    
     // console.log({formDataObject});
 
@@ -120,6 +121,7 @@ const submitCreateCatHandler = (e) => {
     }).catch(showCreateCatError)
 }
 
+//закрыть модалку
 const clickModalWrHendler = (e) => {
     if(e.target === modalWr) {
         modalWr.classList.add("hidden");
@@ -130,6 +132,7 @@ const clickModalWrHendler = (e) => {
 
 }
 
+
 const openModalHendler = (e) => {
     const targetModalName = e.target.dataset.openmodal;
 
@@ -137,6 +140,7 @@ const openModalHendler = (e) => {
         modalWr.classList.remove("hidden");
         modalWr.addEventListener("click", clickModalWrHendler);
         modalContent.insertAdjacentHTML("afterbegin", getCreateCatFormHTML());
+        const $closeModalXmark = document.querySelector(".fa-circle-xmark");
         const createCatForm = document.forms.createCatForm;
         const dataFromLS = localStorage.getItem(CREATE_FORM_lS_KEY);
         const preparedDataFromLS = dataFromLS && JSON.parse(dataFromLS);
@@ -155,11 +159,19 @@ const openModalHendler = (e) => {
             localStorage.setItem(CREATE_FORM_lS_KEY, JSON.stringify(formattedData));
         });
 
+        $closeModalXmark.addEventListener("click", function closeModalXmark() {
+            modalWr.classList.add("hidden");
+            
+            modalWr.removeEventListener("click", clickModalWrHendler); 
+            modalContent.innerHTML = "";
+        });
     }
 }
 
+
 document.addEventListener("click", openModalHendler);
 
+// закрыть модалку
 document.addEventListener("keydown", (e) => {
     if(e.key === "Escape") {
         modalWr.classList.add("hidden");
@@ -168,4 +180,5 @@ document.addEventListener("keydown", (e) => {
         modalContent.innerHTML = "";  
     }
 })
+
 

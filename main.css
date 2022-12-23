@@ -29,12 +29,12 @@ h1 {
 }
 
 .card {
-    margin: 15px;
-    padding: 15px 30px;
+    margin: 40px 10px;
+    padding: 10px 10px 20px 15px;
     background-color: white;
     border-radius: 4px;
     width: 200px;
-    height: 340px;
+    height: 400px;
     
 }
 
@@ -43,6 +43,26 @@ img {
     height: auto;
 }
 
+i {
+    float: right;
+    margin-bottom: 16px;
+    font-size: 24px;
+}
+i:hover {
+    cursor: pointer;
+}
+
+input {
+    margin: 4px;
+    padding: 2px;
+}
+
+button {
+    margin: 4px;
+}
+button:hover {
+    cursor: pointer;
+}
 .modal {
     display: block;
     display: flex;
